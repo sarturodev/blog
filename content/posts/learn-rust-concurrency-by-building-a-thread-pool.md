@@ -1,7 +1,7 @@
 +++
 title = "Learn Rust Concurrency By Building a Thread Pool"
 description = "In this post, we are going to learn about concurrency and threads in Rust. Once we cover all the concepts, we will build a Thread Pool in Rust"
-date = 2026-05-12
+date = 2026-06-12
 transparent = true
 
 [taxonomies]
