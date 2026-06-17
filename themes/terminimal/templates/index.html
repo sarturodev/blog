@@ -322,6 +322,7 @@
 
       if (typeof window.__mountOverlays === "function") window.__mountOverlays();
       if (typeof window.__katexRender === "function") window.__katexRender();
+      if (typeof window.__videoImgConvert === "function") window.__videoImgConvert();
 
       if (url.hash) {
         const id = decodeURIComponent(url.hash.slice(1));
@@ -584,6 +585,23 @@
 
 </div>
 {%- block extra_body %}
+<script>
+window.__videoImgConvert = function() {
+  var imgs = document.querySelectorAll('.post-content img[src$=".mp4"], .post-content img[src$=".webm"], .post-content img[src$=".mov"]');
+  imgs.forEach(function(img) {
+    if (img.dataset.videoConverted) return;
+    img.dataset.videoConverted = '1';
+    var video = document.createElement('video');
+    video.src = img.src;
+    video.controls = true;
+    video.setAttribute('playsinline', '');
+    if (img.alt) video.setAttribute('aria-label', img.alt);
+    if (img.className) video.className = img.className;
+    img.replaceWith(video);
+  });
+};
+window.__videoImgConvert();
+</script>
 {% endblock extra_body -%}
 </body>
 
