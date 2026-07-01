@@ -1,4 +1,5 @@
 {% extends "terminimal/templates/index.html" %}
+{% import "macros/support.html" as support_macros %}
 
 {% block extra_head %}
     {{ super() }}
@@ -25,6 +26,7 @@
         <div class="post">
             {{ post_macros::header(page=welcome_page) }}
             {{ post_macros::content(page=welcome_page, summary=false, show_only_description=false) }}
+            {{ support_macros::block(placement="home") }}
             <h2 class="post-title home-recent-title">recent posts</h2>
             <ul class="home-recent-list">
                 {% set_global shown = 0 %}
