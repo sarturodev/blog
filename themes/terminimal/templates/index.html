@@ -406,6 +406,31 @@
     </div>
 </details>
 {% endif -%}
+{%- if config.extra.support_widget_enabled | default(value=false) and (config.extra.support_github_sponsors_url or config.extra.support_kofi_url) %}
+<details class="support-widget" data-overlay-collapsible role="region" aria-label="Support">
+    <summary class="support-widget__summary">
+        <span>[support]</span>
+        <span class="support-widget__summary-state">github + ko-fi</span>
+    </summary>
+    <div class="support-widget__panel">
+        <p class="support-widget__text">
+            If my writing helped you, you can support it with $1+ via
+            <a class="support-link support-link--kofi" href="{{ config.extra.support_kofi_url | safe }}" target="_blank" rel="noopener noreferrer" data-no-pjax>[Ko-fi]</a>,
+            or a monthly pledge via
+            <a class="support-link support-link--github" href="{{ config.extra.support_github_sponsors_url | safe }}" target="_blank" rel="noopener noreferrer" data-no-pjax>[GitHub Sponsors]</a>.
+            It helps me keep writing about Rust, backend, and gamedev.
+        </p>
+        <div class="support-widget__links">
+            {%- if config.extra.support_github_sponsors_url %}
+            <a class="support-widget__link" href="{{ config.extra.support_github_sponsors_url | safe }}" target="_blank" rel="noopener noreferrer" data-no-pjax>[github sponsors]</a>
+            {% endif -%}
+            {%- if config.extra.support_kofi_url %}
+            <a class="support-widget__link" href="{{ config.extra.support_kofi_url | safe }}" target="_blank" rel="noopener noreferrer" data-no-pjax>[ko-fi tip]</a>
+            {% endif -%}
+        </div>
+    </div>
+</details>
+{% endif -%}
 <script>
 (() => {
   const overlays = Array.from(document.querySelectorAll("[data-overlay-collapsible]"));
@@ -484,6 +509,14 @@
   } else if (typeof mobileQuery.addListener === "function") {
     mobileQuery.addListener(mountOverlays);
   }
+
+  document.addEventListener("click", (e) => {
+    for (const overlay of overlays) {
+      if (overlay.open && !overlay.contains(e.target)) {
+        overlay.removeAttribute("open");
+      }
+    }
+  });
 
   window.__mountOverlays = mountOverlays;
   window.addEventListener("DOMContentLoaded", mountOverlays, { once: true });
