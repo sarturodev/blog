@@ -324,6 +324,7 @@
       if (typeof window.__mountOverlays === "function") window.__mountOverlays();
       if (typeof window.__katexRender === "function") window.__katexRender();
       if (typeof window.__videoImgConvert === "function") window.__videoImgConvert();
+      if (typeof window.__initToc === "function") window.__initToc();
 
       if (url.hash) {
         const id = decodeURIComponent(url.hash.slice(1));

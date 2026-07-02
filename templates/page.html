@@ -16,3 +16,8 @@
         {{ post_macros::earlier_later(page=page) }}
     </div>
 {% endblock content %}
+
+{% block extra_body %}
+{{ super() }}
+<script src="{{ get_url(path='js/toc.js') | safe }}"></script>
+{% endblock extra_body %}
